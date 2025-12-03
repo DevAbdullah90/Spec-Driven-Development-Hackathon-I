@@ -31,7 +31,14 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **I. Content Fidelity**: Does the plan ensure the technical implementation will accurately represent the source educational material?
+- [ ] **II. Structure Follows Content**: Does the proposed structure map logically to the book's outline (Modules, Weeks)?
+- [ ] **III. Simplicity and Maintainability**: Does the plan prioritize standard Docusaurus features and avoid unnecessary complexity?
+- [ ] **IV. Interactivity**: Does the plan incorporate interactive elements (code blocks, admonitions) to enhance learning?
+- [ ] **V. Performance and Accessibility**: Does the plan account for building a fast, responsive, and accessible site?
+- [ ] **VI. RAG Chatbot**: Does the plan account for the integration of the RAG chatbot as specified?
+- [ ] **VII. Rich, Modern, and Visually Engaging User Interface**: Does the plan incorporate a visually appealing, modern, and engaging user interface?
+- [ ] **VIII. Authenticated User Experience and Content Localization**: Does the plan provide for a robust authentication system and content translation features?
 
 ## Project Structure
 

@@ -1,55 +1,46 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+---
+Sync Impact Report
+---
+- Version change: 1.1.0 -> 1.3.0
+- Principles modified: None
+- Sections added:
+  - VII. Rich, Modern, and Visually Engaging User Interface
+  - VIII. Authenticated User Experience and Content Localization
+- Sections removed: None
+- Templates requiring updates:
+  - ✅ .specify/templates/plan-template.md
+- Follow-up TODOs: None
+-->
+# Physical AI & Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Content Fidelity and Accuracy
+The primary goal is to present the provided educational content on Physical AI and Humanoid Robotics with the highest fidelity. The technical implementation using Docusaurus must accurately reflect the source material's structure, concepts, and details. No technical decisions should compromise the clarity or correctness of the content.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Structure Follows Content
+The Docusaurus site architecture—including sidebars, chapter navigation, and section layouts—must logically and intuitively mirror the provided book outline (e.g., Modules 1-4, Weekly Breakdown). The goal is to create a seamless and predictable user experience for students navigating the material.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Simplicity and Maintainability (Hackathon Scope)
+Given the hackathon context, we will prioritize standard Docusaurus features and plugins. We must avoid complex customizations, custom components, or elaborate styling that would increase development time or make future maintenance difficult. The focus is on rapid content delivery, not bespoke web development.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Enhanced Learning Through Interactivity
+To make the content more engaging, we will leverage Docusaurus's built-in interactive elements where appropriate. This includes, but is not limited to: syntax-highlighted code blocks with copy functionality, admonitions for notes and warnings (`!note`, `!warning`), and clear diagrams or images to illustrate complex topics like hardware architecture.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Performance and Accessibility
+The final website must be performant, responsive, and accessible. It should load quickly and provide a consistent experience across various devices (desktop, tablet, mobile). We will adhere to web accessibility standards to ensure the educational content is usable by the widest possible audience.
 
-### [PRINCIPLE_6_NAME]
+### VI. Integrated RAG Chatbot for Enhanced Querying
+The project must include a Retrieval-Augmented Generation (RAG) chatbot to provide an interactive query interface to the book's content. The implementation must use the OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and the Qdrant Cloud Free Tier. The chatbot must support both general questions about the content and contextual queries based on user-selected text.
 
+### VII. Rich, Modern, and Visually Engaging User Interface
+The Docusaurus book shall prioritize a visually appealing, modern, and engaging user interface to enhance the user experience. This includes leveraging rich content formats, thoughtful design, and a beautiful UI to make the educational material more accessible and enjoyable. The UI should be intuitive, aesthetically pleasing, and contribute to the overall quality of the learning experience.
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### VIII. Authenticated User Experience and Content Localization
+The project shall implement a robust authentication system to provide personalized experiences. Authenticated users will be granted specific capabilities, including the ability to translate the content into other languages, starting with Urdu. This feature aims to broaden the reach and accessibility of the educational material.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+All development decisions must align with these principles. Any deviation requires explicit justification based on improving content delivery or user experience. The constitution serves as the guide for all architectural and implementation choices.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.3.0 | **Ratified**: 2025-12-01 | **Last Amended**: 2025-12-03

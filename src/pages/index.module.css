@@ -1,0 +1,185 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+/* Hero Section */
+.heroSection {
+  background-color: #ffffff;
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heroBadge {
+  display: inline-block;
+  background-color: #f0f4ff;
+  color: #1e40af;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
+  border: 1px solid #dbeafe;
+}
+
+.heroTitle {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #1a202c;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.heroDescription {
+  font-size: 16px;
+  color: #718096;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.primaryButton {
+  background-color: #1e40af;
+  border-color: #1e40af;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover {
+  background-color: #1e3a8a;
+  border-color: #1e3a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+.secondaryButton {
+  border: 2px solid #1e40af;
+  color: #1e40af;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background-color: #f0f4ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+}
+
+/* Hero Visual Cards */
+.heroVisual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.heroCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.heroCard:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+.cardIcon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.heroCard h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+}
+
+.heroCard p {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 996px) {
+  .heroSection {
+    padding: 60px 0 40px;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .heroTitle {
+    font-size: 36px;
+  }
+
+  .heroSubtitle {
+    font-size: 18px;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+  }
+
+  .heroButtons a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .heroSection {
+    padding: 40px 0 30px;
+  }
+
+  .heroTitle {
+    font-size: 28px;
+  }
+
+  .heroSubtitle {
+    font-size: 16px;
+  }
+
+  .heroDescription {
+    font-size: 14px;
+  }
+}
