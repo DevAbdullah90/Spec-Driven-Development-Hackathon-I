@@ -39,17 +39,6 @@ function HomepageHeader() {
                  <GoogleLoginButton />
               </div>
             </div>
-
-            <div className={styles.brandsSection}>
-              <p className={styles.brandsTitle}>Powered By:</p>
-              <div className={styles.brandsList}>
-                <span className={styles.brandBadge}>ROS 2</span>
-                <span className={styles.brandBadge}>Python</span>
-                <span className={styles.brandBadge}>Gazebo</span>
-                <span className={styles.brandBadge}>PyTorch</span>
-                <span className={styles.brandBadge}>OpenAI</span>
-              </div>
-            </div>
           </div>
 
           {/* Right Column */}
