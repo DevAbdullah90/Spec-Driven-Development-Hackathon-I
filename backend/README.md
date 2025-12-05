@@ -1,3 +1,13 @@
+---
+title: Physical Ai Backend
+emoji: 🤖
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+app_port: 7860
+---
+
 # Backend README
 
 This is the README for the RAG Chatbot backend service.

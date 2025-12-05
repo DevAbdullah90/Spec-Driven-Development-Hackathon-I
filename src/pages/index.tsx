@@ -1,15 +1,12 @@
-import type { ReactNode } from 'react';
-import clsx from 'clsx';
+import React, { ReactNode } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import Heading from '@theme/Heading';
-import Chatbot from '../theme/components/Chatbot';
 import styles from './index.module.css';
-import { useEffect, useState } from 'react';
-import React from 'react';
-// uvicorn backend.src.main:app --reload --host 127.0.0.1 --port 8000
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleLoginButton from '../components/Auth/GoogleLogin';
+import FeatureHighlights from '@site/src/components/FeatureHighlights';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -17,45 +14,51 @@ function HomepageHeader() {
     <header className={styles.heroSection}>
       <div className={styles.heroContainer}>
         <div className={styles.heroContent}>
+          {/* Left Column */}
           <div className={styles.heroText}>
-            <span className={styles.heroBadge}>🤖 AI-Powered Learning</span>
-            <Heading as="h1" className={styles.heroTitle}>
-              {siteConfig.title}
-            </Heading>
-            <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
-            <p className={styles.heroDescription}>
-              Master the fundamentals of physical AI and humanoid robotics through
-              comprehensive courses, interactive examples, and hands-on projects.
+            <h1 className={styles.heroTitle}>
+              Physical AI &<br />
+              Humanoid Robotics
+            </h1>
+            <p className={styles.heroSubtitle}>
+              {siteConfig.tagline}
             </p>
-            <div className={styles.heroButtons}>
+            
+            <div className={styles.heroActions}>
               <Link
-                className={clsx('button button--primary button--lg', styles.primaryButton)}
+                className={styles.primaryButton}
                 to="/docs/overview">
-                Start Learning
+                Start Learning <span>→</span>
               </Link>
               <Link
-                className={clsx('button button--outline button--lg', styles.secondaryButton)}
-                to="/blog">
-                Read Blog
+                className={styles.secondaryButton}
+                to="/about">
+                About Me
               </Link>
+              <div className={styles.googleButtonWrapper}>
+                 <GoogleLoginButton />
+              </div>
+            </div>
+
+            <div className={styles.brandsSection}>
+              <p className={styles.brandsTitle}>Powered By:</p>
+              <div className={styles.brandsList}>
+                <span className={styles.brandBadge}>ROS 2</span>
+                <span className={styles.brandBadge}>Python</span>
+                <span className={styles.brandBadge}>Gazebo</span>
+                <span className={styles.brandBadge}>PyTorch</span>
+                <span className={styles.brandBadge}>OpenAI</span>
+              </div>
             </div>
           </div>
+
+          {/* Right Column */}
           <div className={styles.heroVisual}>
-            <div className={styles.heroCard}>
-              <div className={styles.cardIcon}>🤖</div>
-              <h3>Interactive Learning</h3>
-              <p>Engage with AI-powered content and real-time assistance</p>
-            </div>
-            <div className={styles.heroCard}>
-              <div className={styles.cardIcon}>⚡</div>
-              <h3>Hands-On Projects</h3>
-              <p>Build real-world applications with guided tutorials</p>
-            </div>
-            <div className={styles.heroCard}>
-              <div className={styles.cardIcon}>🎯</div>
-              <h3>Expert Guidance</h3>
-              <p>Learn from industry professionals and researchers</p>
-            </div>
+            <img 
+              src={useBaseUrl('https://img-cdn.inc.com/image/upload/f_webp,q_auto,c_fit/images/panoramic/figure-robot-start-up-inc_543614_h1rxv6.jpg')} 
+              alt="Futuristic Humanoid Robot" 
+              className={styles.robotImage}
+            />
           </div>
         </div>
       </div>
@@ -65,36 +68,18 @@ function HomepageHeader() {
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
-
-  const [selectedText, setSelectedText] = React.useState('');
-
-  const handleTextSelection = React.useCallback(() => {
-    const selection = window.getSelection();
-    if (selection && selection.toString().trim().length > 0) {
-      setSelectedText(selection.toString());
-    } else {
-      setSelectedText('');
-    }
-  }, []);
-
-  // Add event listener on mount to capture text selections
-  React.useEffect(() => {
-    document.addEventListener('mouseup', handleTextSelection);
-    // Clean up listener on unmount
-    return () => {
-      document.removeEventListener('mouseup', handleTextSelection);
-    };
-  }, [handleTextSelection]);
+  const googleClientId = siteConfig.customFields?.googleClientId as string;
 
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
-      <Chatbot selectedText={selectedText} />
-      <main>
-        <HomepageFeatures />
-      </main>
-    </Layout>
+    <GoogleOAuthProvider clientId={googleClientId || ''}>
+      <Layout
+        title={`Hello from ${siteConfig.title}`}
+        description="Bridging the gap between the digital brain and the physical body.">
+        <HomepageHeader />
+        <main>
+          <FeatureHighlights />
+        </main>
+      </Layout>
+    </GoogleOAuthProvider>
   );
 }

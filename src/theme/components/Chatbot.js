@@ -29,7 +29,7 @@ const Chatbot = ({ selectedText }) => {
 
     try {
       // Backend API URL
-      const API_BASE_URL = 'http://127.0.0.1:8000';
+      const API_BASE_URL = 'https://abdullah9873-physical-ai-backend.hf.space';
       const endpoint = isSelectedTextQuery ? '/query/selected-text' : '/query/general';
       const payload = isSelectedTextQuery
         ? { question: queryText, selected_text: selectedText }
@@ -60,7 +60,7 @@ const Chatbot = ({ selectedText }) => {
 
     } catch (error) {
       console.error("Error sending message:", error);
-      const errorMessage = { text: `Sorry, an error occurred: ${error.message}`, sender: 'bot' };
+      const errorMessage = { text: `Unable to connect to the AI Brain. Please ensure the backend is running. (${error.message})`, sender: 'bot' };
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -74,7 +74,7 @@ const Chatbot = ({ selectedText }) => {
 
   const handleSelectedTextSend = () => {
     if (selectedText && selectedText.trim() !== '') {
-      sendMessage(`Explain this text: "${selectedText.substring(0, 100)}${selectedText.length > 100 ? '...' : ''}"`, true);
+      sendMessage(`Explain this context: "${selectedText.substring(0, 150)}..."`, true);
     }
   };
 
@@ -87,7 +87,7 @@ const Chatbot = ({ selectedText }) => {
           onClick={() => setIsOpen(true)}
           aria-label="Open AI Assistant"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
         </button>
@@ -100,14 +100,17 @@ const Chatbot = ({ selectedText }) => {
           <div className={styles.chatHeader}>
             <div className={styles.headerContent}>
               <div className={styles.statusIndicator}></div>
-              <h3>AI Assistant</h3>
+              <div>
+                <h3>AI Companion</h3>
+                <div style={{fontSize: '12px', color: '#888', fontWeight: 500}}>Online • Powered by RAG</div>
+              </div>
             </div>
             <button
               className={styles.closeButton}
               onClick={() => setIsOpen(false)}
               aria-label="Close chat"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -118,8 +121,14 @@ const Chatbot = ({ selectedText }) => {
           <div className={styles.messagesContainer}>
             {messages.length === 0 && (
               <div className={styles.emptyState}>
-                <div className={styles.emptyIcon}>💬</div>
-                <p>Ask me anything about Physical AI and Humanoid Robotics!</p>
+                <div className={styles.emptyIcon}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path>
+                    <path d="M8 14a2 2 0 0 1 2 2"></path>
+                    <path d="M14 14a2 2 0 0 1 2 2"></path>
+                  </svg>
+                </div>
+                <p>Hello! I'm your Physical AI assistant. Ask me about ROS 2, Humanoid Robots, or select text on the page to explain it.</p>
               </div>
             )}
             {messages.map((msg, index) => (
@@ -146,20 +155,20 @@ const Chatbot = ({ selectedText }) => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Selected Text Display */}
+          {/* Selected Text Banner */}
           {selectedText && (
             <div className={styles.selectedTextBanner}>
               <div className={styles.selectedTextContent}>
-                <span className={styles.selectedTextLabel}>Selected:</span>
+                <span className={styles.selectedTextLabel}>Context Selected</span>
                 <span className={styles.selectedTextPreview}>
-                  {selectedText.length > 60 ? selectedText.substring(0, 60) + '...' : selectedText}
+                  "{selectedText.length > 40 ? selectedText.substring(0, 40) + '...' : selectedText}"
                 </span>
               </div>
               <button
                 className={styles.askButton}
                 onClick={handleSelectedTextSend}
               >
-                Ask
+                Explain
               </button>
             </div>
           )}
@@ -170,7 +179,7 @@ const Chatbot = ({ selectedText }) => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your question..."
+              placeholder="Type a message..."
               className={styles.messageInput}
               disabled={isLoading}
             />
@@ -179,7 +188,7 @@ const Chatbot = ({ selectedText }) => {
               className={styles.sendButton}
               disabled={isLoading || !input.trim()}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
               </svg>

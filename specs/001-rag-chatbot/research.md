@@ -1,35 +1,42 @@
-# Research: RAG Chatbot Tech Stack
+# Research: RAG Chatbot Integration
 
-**Purpose**: To document the technology choices for the RAG chatbot feature, as outlined in the project constitution and feature specification.
+This document outlines the research tasks required to successfully implement the RAG chatbot.
 
-## Decisions
+## Research Tasks
 
-### Backend Framework: FastAPI
+### 1. FastAPI, Qdrant, and OpenAI Integration
 
--   **Decision**: Use FastAPI as the backend framework.
--   **Rationale**: FastAPI is a modern, high-performance Python web framework that is easy to learn and use. Its automatic OpenAPI documentation generation is ideal for creating clean, self-documenting APIs. It's well-suited for the asynchronous operations that will be involved in querying the database and language model.
--   **Alternatives Considered**:
-    -   **Flask**: A solid choice, but lacks the built-in data validation and async support that FastAPI provides out-of-the-box.
-    -   **Django**: Too large and complex for the scope of this project, which is primarily a single-purpose API.
+**Task**: Investigate the best practices for building a RAG pipeline using FastAPI, Qdrant, and the OpenAI API.
 
-### Vector Database: Qdrant Cloud
+**Questions to Answer**:
 
--   **Decision**: Use the Qdrant Cloud Free Tier.
--   **Rationale**: Qdrant is a high-performance vector search engine that is well-suited for RAG applications. The free tier is sufficient for the scope of this hackathon project. It has a straightforward Python client library.
--   **Alternatives Considered**:
-    -   **Pinecone**: Another popular vector database, but Qdrant's free tier and open-source nature make it a good fit.
-    -   **Local FAISS**: Could run a local vector index, but using a cloud service simplifies deployment and management.
+- How should data be chunked and vectorized for optimal retrieval?
+- What is the most efficient way to query Qdrant for relevant context?
+- How should the prompt be structured for the OpenAI API to generate answers based on the retrieved context?
+- How can we handle long documents and conversations?
+- What are the best practices for error handling and logging in this stack?
 
-### Relational Database: Neon Serverless Postgres
+### 2. Docusaurus Chatbot Integration
 
--   **Decision**: Use Neon Serverless Postgres.
--   **Rationale**: Neon provides a simple, serverless Postgres experience with a generous free tier. It's ideal for storing the text chunks and their metadata without requiring database management.
--   **Alternatives Considered**:
-    -   **SQLite**: Simple to set up, but not ideal for a deployed web application.
-    -   **Self-hosted Postgres**: Adds unnecessary operational overhead for this project.
+**Task**: Determine the best approach for embedding a React-based chatbot into the existing Docusaurus site.
 
-### AI SDK: OpenAI
+**Questions to Answer**:
 
--   **Decision**: Use the OpenAI SDK.
--   **Rationale**: The specification explicitly requires the use of the OpenAI SDK. It is the standard for interacting with OpenAI's language models.
--   **Alternatives Considered**: None, as this was a requirement.
+- Should we use a custom component, a plugin, or a third-party library?
+- How can we manage the chatbot's state within the Docusaurus application?
+- How will the chatbot communicate with the FastAPI backend?
+- How can we implement the text selection feature to send context to the chatbot?
+
+### 3. Neon Serverless Postgres with FastAPI
+
+**Task**: Research how to connect a FastAPI application to a Neon Serverless Postgres database.
+
+**Questions to Answer**:
+
+- What database library should be used (e.g., SQLAlchemy, databases)?
+- How should the database connection be managed in a serverless environment?
+- What are the best practices for defining data models and performing CRUD operations?
+
+## Research Findings
+
+*This section will be filled in after the research is complete.*

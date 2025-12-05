@@ -22,7 +22,7 @@ class OpenAIservice:
         
         self.client = OpenAI(api_key=self.api_key)
         self.embedding_model = "text-embedding-3-small"
-        self.chat_model = "gpt-3.5-turbo"
+        self.chat_model = "gpt-4o-mini"
     
     def get_embedding(self, text: str) -> Optional[List[float]]:
         """

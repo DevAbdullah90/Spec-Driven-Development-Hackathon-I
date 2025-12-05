@@ -33,7 +33,10 @@ class QdrantService:
         
         # Initialize client - use cloud URL if API key is provided
         if api_key and not host.startswith("localhost"):
-            self.client = QdrantClient(url=f"https://{host}", api_key=api_key)
+            if host.startswith("https://") or host.startswith("http://"):
+                self.client = QdrantClient(url=host, api_key=api_key)
+            else:
+                self.client = QdrantClient(url=f"https://{host}", api_key=api_key)
         else:
             self.client = QdrantClient(host=host, port=port)
         

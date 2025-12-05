@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -15,15 +15,15 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://DevAbdullah90.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/Spec-Driven-Development-Hackathon-I/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'DevAbdullah90', // Usually your GitHub org/user name.
+  projectName: 'Spec-Driven-Development-Hackathon-I', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -44,7 +44,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -55,7 +55,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -76,10 +76,6 @@ const config: Config = {
     },
     navbar: {
       title: 'Physical AI & Humanoid Robotics',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
       items: [
         {
           type: 'docSidebar',
@@ -87,9 +83,9 @@ const config: Config = {
           position: 'left',
           label: 'Course Content',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        { to: '/about', label: 'About', position: 'left' },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I',
           label: 'GitHub',
           position: 'right',
         },
@@ -99,11 +95,15 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Course',
           items: [
             {
-              label: 'Tutorial',
+              label: 'Overview',
               to: '/docs/overview',
+            },
+            {
+              label: 'Hardware Requirements',
+              to: '/docs/hardware-requirements',
             },
           ],
         },
@@ -111,16 +111,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'GitHub Issues',
+              href: 'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I/issues',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'Discussions',
+              href: 'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I/discussions',
             },
           ],
         },
@@ -128,23 +124,27 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: 'About Me',
+              to: '/about',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              label: 'GitHub Repo',
+              href: 'https://github.com/DevAbdullah90/Spec-Driven-Development-Hackathon-I',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Course. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  customFields: {
+    googleClientId: '640440997207-sve6abkc5b85inma8ece5ujff75u672u.apps.googleusercontent.com',
+  },
 };
 
 export default config;

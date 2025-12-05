@@ -1,34 +1,48 @@
+/* Features Grid Section */
 .features {
-  background-color: var(--ifm-color-content-bg); /* Use CSS variable for section background */
   display: flex;
   align-items: center;
-  padding: 4rem 0;
+  padding: 6rem 0;
   width: 100%;
+  position: relative;
+  z-index: 1;
+  background-color: #fafafa; /* Slightly off-white for contrast with Hero */
 }
 
 .featureCard {
-  background-color: var(--feature-card-bg); /* Use CSS variable for individual feature cards */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 2rem;
-  margin: 1rem;
-  height: 100%; /* Ensure cards are same height */
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+  /* Clean, no border look */
+  background: transparent;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
 }
 
 .featureCard h3 {
-  color: var(--feature-heading-color); /* Use CSS variable for headings */
+  font-family: 'Space Grotesk', sans-serif;
+  color: #1a1a1a;
   margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 
 .featureCard p {
-  color: var(--feature-text-color); /* Use CSS variable for text */
+  font-family: 'Inter', sans-serif;
+  color: #555;
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
 .featureSvg {
-  height: 150px;
-  width: 150px;
-  margin-bottom: 1rem;
+  height: 120px; /* Slightly smaller for cleaner look */
+  width: 120px;
+  margin-bottom: 1.5rem;
+  /* Removed generic drop shadow */
 }

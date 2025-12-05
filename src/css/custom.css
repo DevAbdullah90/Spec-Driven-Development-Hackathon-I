@@ -1,42 +1,179 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+/* Import Urdu Font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Core Brand Colors */
+  --ifm-color-primary: #FF9E68; /* Matches Hero Orange */
+  --ifm-color-primary-dark: #e68a5c;
+  --ifm-color-primary-darker: #cc7a52;
+  --ifm-color-primary-darkest: #a66342;
+  --ifm-color-primary-light: #ffb387;
+  --ifm-color-primary-lighter: #ffc8a6;
+  --ifm-color-primary-lightest: #ffdec5;
 
-  /* Custom colors for HomepageFeatures - Light Theme */
-  --ifm-color-content-bg: #F5F5DC; /* Off-white for section background */
-  --feature-card-bg: #FFFFFF; /* White for feature card background */
-  --feature-heading-color: #007BFF; /* Blue for headings */
-  --feature-text-color: #333333; /* Dark grey for text */
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', monospace;
+  --ifm-heading-font-family: 'Space Grotesk', sans-serif;
+  
+  /* Layout */
+  --ifm-navbar-height: 5rem; /* Taller, more spacious navbar */
+  --ifm-container-width-xl: 1280px;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+/* Urdu Specific Styling */
+.urdu-mode {
+  font-family: 'Noto Nastaliq Urdu', serif !important;
+  direction: rtl;
+  text-align: right;
+  line-height: 2.2 !important; /* Urdu needs more breathing room */
+  font-size: 1.1em;
+}
 
-  /* Custom colors for HomepageFeatures - Dark Theme */
-  --ifm-color-content-bg: #212529; /* Darker background for section */
-  --feature-card-bg: #343a40; /* Darker background for feature cards */
-  --feature-heading-color: #6FA8DC; /* Lighter blue for headings */
-  --feature-text-color: #E0E0E0; /* Light grey for text */
+/* When in Urdu mode, specific elements need adjustments */
+.urdu-mode h1, 
+.urdu-mode h2, 
+.urdu-mode h3 {
+  font-family: 'Noto Nastaliq Urdu', serif !important;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+/* Dark Mode (Default/Preferred) */
+[data-theme='dark'] {
+  --ifm-background-color: #0F172A;
+  --ifm-background-surface-color: #1E293B;
+  --ifm-text-color: #F8FAFC;
+  --ifm-navbar-background-color: rgba(15, 23, 42, 0.85);
+  --ifm-footer-background-color: #020617;
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Light Mode Overrides */
+[data-theme='light'] {
+  --ifm-color-primary: #FF9E68;
+  --ifm-background-color: #FFFFFF;
+  --ifm-background-surface-color: #F8FAFC;
+  --ifm-text-color: #1a1a1a;
+  --ifm-navbar-background-color: rgba(255, 255, 255, 0.9);
+  --ifm-footer-background-color: #111827; /* Dark footer even in light mode for contrast */
+  --glass-border: rgba(0, 0, 0, 0.05);
+}
+
+/* ====================
+   Navbar Styling
+   ==================== */
+.navbar {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.navbar__brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  margin-right: 2rem;
+}
+
+.navbar__title {
+  font-weight: 800;
+  background: linear-gradient(135deg, #1a1a1a 0%, #555 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme='dark'] .navbar__title {
+  background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar__item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: var(--ifm-text-color);
+}
+
+.navbar__item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .navbar__item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* GitHub Link Styling */
+.navbar__item[href*="github"] {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.navbar__item[href*="github"]:hover {
+  opacity: 1;
+  background: transparent;
+}
+
+
+/* ====================
+   Footer Styling
+   ==================== */
+.footer {
+  --ifm-footer-background-color: #0a0a0a;
+  --ifm-footer-color: #888;
+  --ifm-footer-link-color: #bbb;
+  --ifm-footer-title-color: #fff;
+  
+  background: var(--ifm-footer-background-color);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 5rem 0 3rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-footer-title-color);
+}
+
+.footer__link-item {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.footer__link-item:hover {
+  color: var(--ifm-color-primary);
+  transform: translateX(4px);
+  text-decoration: none;
+}
+
+.footer__copyright {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.85rem;
+  opacity: 0.6;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Social Icons in Footer (if any) */
+.footer__link-item svg {
+  margin-right: 0.5rem;
 }

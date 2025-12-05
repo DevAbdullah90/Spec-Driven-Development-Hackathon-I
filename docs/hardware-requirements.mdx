@@ -1,0 +1,85 @@
+---
+sidebar_position: 2
+title: Hardware Requirements
+description: Essential gear for building Physical AI.
+---
+
+import Admonition from '@theme/Admonition';
+
+# 🛠️ Hardware and Lab Requirements
+
+This course is technically demanding, sitting at the intersection of three heavy computational loads: **Physics Simulation**, **Visual Perception (SLAM/Computer Vision)**, and **Generative AI (LLMs/VLA)**.
+
+:::danger Critical Requirement
+**NVIDIA RTX GPU Required.** Standard MacBooks or non-RTX laptops will **not** work for the Isaac Sim portion of this course.
+:::
+
+## 1. The "Digital Twin" Workstation
+
+This is your primary development machine.
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px', marginBottom: '2rem'}}>
+  <div style={{border: '1px solid var(--ifm-color-emphasis-200)', padding: '15px', borderRadius: '8px', background: 'var(--ifm-card-background-color)'}}>
+    <strong style={{color: '#d32f2f'}}>GPU (Critical)</strong>
+    <p style={{margin: '5px 0 0'}}>NVIDIA RTX 4070 Ti (12GB+) or higher.</p>
+  </div>
+  <div style={{border: '1px solid var(--ifm-color-emphasis-200)', padding: '15px', borderRadius: '8px', background: 'var(--ifm-card-background-color)'}}>
+    <strong>CPU</strong>
+    <p style={{margin: '5px 0 0'}}>Intel Core i7 (13th Gen+) or Ryzen 9.</p>
+  </div>
+  <div style={{border: '1px solid var(--ifm-color-emphasis-200)', padding: '15px', borderRadius: '8px', background: 'var(--ifm-card-background-color)'}}>
+    <strong>RAM</strong>
+    <p style={{margin: '5px 0 0'}}>64 GB DDR5 (32GB min).</p>
+  </div>
+  <div style={{border: '1px solid var(--ifm-color-emphasis-200)', padding: '15px', borderRadius: '8px', background: 'var(--ifm-card-background-color)'}}>
+    <strong>OS</strong>
+    <p style={{margin: '5px 0 0'}}>Ubuntu 22.04 LTS (Native).</p>
+  </div>
+</div>
+
+## 2. The "Physical AI" Edge Kit
+
+These components form the "nervous system" of your robot.
+
+| Component | Recommended Model | Why? |
+| :--- | :--- | :--- |
+| **The Brain** 🧠 | **NVIDIA Jetson Orin Nano (8GB)** | Runs the ROS 2 inference stack on the robot. |
+| **The Eyes** 👀 | **Intel RealSense D435i** | Provides RGB + Depth data for 3D perception. |
+| **The Ears** 👂 | **ReSpeaker USB Mic Array** | Enables voice commands via Whisper. |
+
+<details>
+  <summary><strong>💰 Budget Option: The Economy Kit (~$700)</strong></summary>
+  <ul>
+    <li>NVIDIA Jetson Orin Nano Super Dev Kit: ~$249</li>
+    <li>Intel RealSense D435i: ~$349</li>
+    <li>ReSpeaker USB Mic: ~$69</li>
+    <li>SD Card & Wires: ~$30</li>
+  </ul>
+</details>
+
+## 3. The Robot Lab (Actuators)
+
+Choosing the right physical body for your AI.
+
+### Option A: The "Proxy" (Best Value)
+*   **Robot:** Unitree Go2 Edu (~$1,800)
+*   **Pros:** Excellent ROS 2 support, durable.
+*   **Cons:** Quadruped (dog), not humanoid.
+
+### Option B: The "Premium" Humanoid
+*   **Robot:** Unitree G1 Humanoid (~$16,000)
+*   **Why:** Full bipedal dynamics, capable of complex manipulation tasks.
+
+---
+
+## 4. Infrastructure Summary
+
+Your lab ecosystem connects as follows:
+
+```mermaid
+graph TD
+    A[Sim Workstation (RTX 4090)] -->|Trains Model| B(Hugging Face Hub)
+    B -->|Downloads Weights| C[Edge Brain (Jetson Orin)]
+    D[Sensors (RealSense)] -->|RGB-D Data| C
+    C -->|Motor Commands| E[Actuator (Robot Body)]
+```

@@ -13,6 +13,10 @@ module.exports = {
   organizationName: 'your-org',
   projectName: 'physical-ai-robots',
 
+  customFields: {
+    googleClientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  },
+
   theme: {
     customCss: require.resolve('./src/css/custom.css'),
     // Correctly pointing to the Root component within the Docusaurus src directory
@@ -44,13 +48,6 @@ module.exports = {
   ],
 
   themeConfig: {
-    // Replace with your site's theme configuration
-    navbar: {
-      title: 'Physical AI & Humanoid Robotics',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
       items: [
         {to: '/blog', label: 'Blog', position: 'left'},
         {

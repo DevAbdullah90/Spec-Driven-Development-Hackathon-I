@@ -1,43 +1,38 @@
 # Implementation Plan: RAG Chatbot Integration
 
-**Branch**: `001-rag-chatbot` | **Date**: 2025-12-01 | **Spec**: [spec.md](spec.md)
+**Branch**: `001-rag-chatbot` | **Date**: 2025-12-03 | **Spec**: [specs/001-rag-chatbot/spec.md](spec.md)
 **Input**: Feature specification from `specs/001-rag-chatbot/spec.md`
+
+**Note**: This template is filled in by the `/sp.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-This plan outlines the technical implementation for a Retrieval-Augmented Generation (RAG) chatbot embedded within the Docusaurus-based book. The chatbot will answer user questions based on the book's content, utilizing a stack composed of FastAPI, Neon Serverless Postgres, Qdrant Cloud, and the OpenAI SDKs.
+This plan outlines the implementation of a Retrieval-Augmented Generation (RAG) chatbot within the Docusaurus-based book. The chatbot will use an OpenAI model, a FastAPI backend, a Qdrant vector database for retrieval, and a Neon serverless Postgres database for storing chat history and other relational data. It will answer user questions based on the book's content and on user-selected text passages.
 
 ## Technical Context
 
-**Language/Version**: Python 3.11+
-**Primary Dependencies**:
-- FastAPI (for the API backend)
-- Uvicorn (for serving the FastAPI app)
-- OpenAI SDK (for interacting with language models)
-- Qdrant Client (for vector database interactions)
-- psycopg2-binary (for connecting to Neon Postgres)
-- Alembic (for database migrations)
-- Beautiful Soup (for parsing Docusaurus HTML content)
-**Storage**:
-- Neon Serverless Postgres (for storing content chunks and metadata)
-- Qdrant Cloud Free Tier (for vector embeddings)
-**Testing**: pytest
-**Target Platform**: Web (embedded in Docusaurus)
-**Project Type**: Web application (backend service with a frontend component)
-**Performance Goals**: Respond to 90% of user queries in under 5 seconds.
-**Constraints**: Must operate within the free tiers of Qdrant Cloud and Neon Serverless Postgres.
-**Scale/Scope**: Scaled for a single book's content and a moderate number of concurrent users, typical for a hackathon project.
+**Language/Version**: Python 3.11, TypeScript
+**Primary Dependencies**: FastAPI, OpenAI SDK, Qdrant Client, Docusaurus, React
+**Storage**: Neon Serverless Postgres, Qdrant Cloud
+**Testing**: pytest, Jest
+**Target Platform**: Web
+**Project Type**: Web application (frontend + backend)
+**Performance Goals**: 90% of user queries receive a response in under 5 seconds.
+**Constraints**: The implementation must use the specified technology stack (OpenAI, FastAPI, Neon, Qdrant) and be integrated into the existing Docusaurus site.
+**Scale/Scope**: The chatbot will serve a moderate user load for a single book's content.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- [x] **I. Content Fidelity**: The chatbot's primary purpose is to provide accurate answers from the book's content, upholding this principle.
-- [x] **II. Structure Follows Content**: The chatbot's knowledge base will be structured according to the book's content.
-- [x] **III. Simplicity and Maintainability**: The chosen tech stack uses well-documented, popular libraries, and leverages serverless/cloud-managed services to reduce maintenance overhead.
-- [x] **IV. Interactivity**: The chatbot directly fulfills this principle by adding a new layer of interaction with the content.
-- [x] **V. Performance and Accessibility**: The plan includes a performance goal, and the frontend component will need to be designed with accessibility in mind.
-- [x] **VI. Integrated RAG Chatbot for Enhanced Querying**: The entire plan is dedicated to fulfilling this principle.
+- [x] **I. Content Fidelity**: The RAG chatbot will draw answers directly from the book's content, ensuring fidelity.
+- [x] **II. Structure Follows Content**: The chatbot will be an enhancement to the existing structure, not a replacement.
+- [x] **III. Simplicity and Maintainability**: The plan uses a well-defined stack and established libraries, which should lead to a maintainable solution.
+- [x] **IV. Interactivity**: The chatbot is a key interactive feature.
+- [x] **V. Performance and Accessibility**: The performance goal of <5s responses is defined. The UI will be built with accessibility in mind.
+- [x] **VI. RAG Chatbot**: This plan is specifically for the RAG chatbot.
+- [ ] **VII. Rich, Modern, and Visually Engaging User Interface**: The chatbot UI should be designed to be modern and engaging.
+- [ ] **VIII. Authenticated User Experience and Content Localization**: This feature does not include authentication or localization, but the architecture should not preclude adding it later.
 
 ## Project Structure
 
@@ -45,44 +40,41 @@ This plan outlines the technical implementation for a Retrieval-Augmented Genera
 
 ```text
 specs/001-rag-chatbot/
-├── plan.md              # This file
-├── research.md          # Phase 0 output
-├── data-model.md        # Phase 1 output
-├── quickstart.md        # Phase 1 output
-├── contracts/           # Phase 1 output
-└── tasks.md             # Phase 2 output
+├── plan.md              # This file (/sp.plan command output)
+├── research.md          # Phase 0 output (/sp.plan command)
+├── data-model.md        # Phase 1 output (/sp.plan command)
+├── quickstart.md        # Phase 1 output (/sp.plan command)
+├── contracts/           # Phase 1 output (/sp.plan command)
+└── tasks.md             # Phase 2 output (/sp.tasks command - NOT created by /sp.plan)
 ```
 
 ### Source Code (repository root)
 
 ```text
-# Web application (backend + frontend)
 backend/
 ├── src/
-│   ├── main.py          # FastAPI application entry point
-│   ├── crud.py          # Database interaction logic
-│   ├── models.py        # Pydantic models for API
-│   ├── schemas.py       # SQLAlchemy models for database
-│   ├── database.py      # Database session management
-│   ├── dependencies.py  # Dependencies for API endpoints
-│   └── services/
-│       ├── qdrant_service.py # Qdrant interaction logic
-│       └── openai_service.py # OpenAI interaction logic
+│   ├── models/
+│   ├── services/
+│   └── api/
 └── tests/
 
 frontend/
 ├── src/
 │   ├── components/
-│   │   └── Chatbot.js   # The chatbot UI component
-│   └── theme/
-│       └── Root.js      # Docusaurus theme component to wrap the app
-└── package.json
+│   │   └── Chatbot/
+│   ├── pages/
+│   └── services/
+└── tests/
 ```
 
-**Structure Decision**: A standard web application structure is chosen, with a clear separation between the Python backend and the Docusaurus (React) frontend.
+**Structure Decision**: The project will use a frontend/backend structure. The frontend is the existing Docusaurus site, and the backend will be a new FastAPI application.
 
 ## Complexity Tracking
 
+> **Fill ONLY if Constitution Check has violations that must be justified**
+
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| N/A       | N/A        | N/A                                 |
+|           |            |                                     |
+|           |            |                                     |
+
