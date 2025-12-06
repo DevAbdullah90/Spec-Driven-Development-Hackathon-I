@@ -7,15 +7,10 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  /* Subtle clean gradient */
-  background: radial-gradient(circle at 90% 10%, #f0f4ff 0%, #ffffff 60%);
-  overflow: hidden;
-  font-family: 'Inter', sans-serif;
-  color: #111;
+  flex-direction: column;
   padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .heroContainer {
@@ -83,7 +78,7 @@
 
 .primaryButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: #fff !important;
 }
@@ -162,16 +157,26 @@
 /* Image Styling */
 .robotImage {
   width: 100%;
-  max-width: 600px; /* Controlled width */
+  max-width: 600px;
+  /* Controlled width */
   height: auto;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1)); /* Subtle shadow */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+  /* Subtle shadow */
   transform: scale(1);
   transition: transform 0.3s ease;
-  border-radius: 12px; /* Optional: if the image isn't transparent */
+  border-radius: 12px;
+  /* Optional: if the image isn't transparent */
 }
 
 .robotImage:hover {
   transform: scale(1.02);
+}
+
+.splineScene {
+  width: 100%;
+  height: 500px;
+  /* Fixed height for the 3D scene */
+  border-radius: 12px;
 }
 
 /* Responsive */
@@ -204,13 +209,15 @@
   .heroTitle {
     font-size: 2.5rem;
   }
-  
+
   .heroActions {
     flex-direction: column;
     width: 100%;
   }
 
-  .primaryButton, .secondaryButton, .googleButtonWrapper {
+  .primaryButton,
+  .secondaryButton,
+  .googleButtonWrapper {
     width: 100%;
     justify-content: center;
   }

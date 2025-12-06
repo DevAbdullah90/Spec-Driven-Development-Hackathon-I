@@ -6,51 +6,14 @@ import Layout from '@theme/Layout';
 import styles from './index.module.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleLoginButton from '../components/Auth/GoogleLogin';
-import FeatureHighlights from '@site/src/components/FeatureHighlights';
+import FeatureHighlights from '../components/FeatureHighlights';
+import { SplineSceneBasic } from '../components/SplineSceneBasic';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <header className={styles.heroSection}>
-      <div className={styles.heroContainer}>
-        <div className={styles.heroContent}>
-          {/* Left Column */}
-          <div className={styles.heroText}>
-            <h1 className={styles.heroTitle}>
-              Physical AI &<br />
-              Humanoid Robotics
-            </h1>
-            <p className={styles.heroSubtitle}>
-              {siteConfig.tagline}
-            </p>
-            
-            <div className={styles.heroActions}>
-              <Link
-                className={styles.primaryButton}
-                to="/docs/overview">
-                Start Learning <span>→</span>
-              </Link>
-              <Link
-                className={styles.secondaryButton}
-                to="/about">
-                About Me
-              </Link>
-              <div className={styles.googleButtonWrapper}>
-                 <GoogleLoginButton />
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className={styles.heroVisual}>
-            <img 
-              src={useBaseUrl('https://img-cdn.inc.com/image/upload/f_webp,q_auto,c_fit/images/panoramic/figure-robot-start-up-inc_543614_h1rxv6.jpg')} 
-              alt="Futuristic Humanoid Robot" 
-              className={styles.robotImage}
-            />
-          </div>
-        </div>
-      </div>
+      <SplineSceneBasic />
     </header>
   );
 }
