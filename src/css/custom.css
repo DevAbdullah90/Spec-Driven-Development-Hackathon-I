@@ -180,3 +180,24 @@
 .footer__link-item svg {
   margin-right: 0.5rem;
 }
+
+/* Loading Spinner */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(255, 158, 104, 0.3); /* Primary color opacity */
+  border-bottom-color: var(--ifm-color-primary);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
