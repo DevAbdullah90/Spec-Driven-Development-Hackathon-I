@@ -1,18 +1,31 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import os
-from .models import Base  # Import Base from models.py
+from pathlib import Path
+from .models import Base
+
+# Calculate absolute path to backend/test.db
+# __file__ is backend/src/database.py
+# parent is backend/src
+# parent.parent is backend
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_PATH = BASE_DIR / "test.db"
 
 # Make DATABASE_URL optional - use SQLite in-memory if not provided
-DATABASE_URL = os.getenv("DATABASE_URL") # Assuming .env will set this to postgres
-# Fallback to SQLite if DATABASE_URL is not set for development/testing
+DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
-    DATABASE_URL = "sqlite:///./test.db"
+    # Use absolute path to ensure we hit the correct file regardless of CWD
+    DATABASE_URL = f"sqlite:///{DB_PATH}"
+
+print(f"--- Database Configuration ---")
+print(f"Using Database URL: {DATABASE_URL}")
+print(f"Absolute DB Path: {DB_PATH}")
+print(f"DB File Exists: {DB_PATH.exists()}")
+print(f"------------------------------")
 
 try:
     engine = create_engine(DATABASE_URL)
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    # Base is now imported from models.py
     database_available = True
 except Exception as e:
     print(f"Database connection failed: {e}")

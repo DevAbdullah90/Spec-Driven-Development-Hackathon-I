@@ -89,6 +89,9 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
         },
+        { to: '/login', label: 'Login', position: 'right' },
+        { to: '/register', label: 'Register', position: 'right' },
+        { to: '/profile', label: 'Profile', position: 'right' },
       ],
     },
     footer: {

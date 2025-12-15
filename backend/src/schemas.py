@@ -1,10 +1,8 @@
 from typing import List, Optional
 import datetime
 from pydantic import BaseModel
-import uuid
 
-# Existing RAG Chatbot related Pydantic models (assuming they are Pydantic, not SQLAlchemy)
-# If these were SQLAlchemy models, they should be moved to models.py
+# Existing RAG Chatbot related Pydantic models
 class QueryResponseSource(BaseModel):
     source_location: str
 
@@ -23,27 +21,36 @@ class SelectedTextQueryRequest(BaseModel):
     question: str
     selected_text: str
 
-# New Pydantic schemas for the Book Auth and Translation feature
-class UserBase(BaseModel):
+# Better Auth Models
+class AuthUser(BaseModel):
+    id: str
     email: str
-    name: Optional[str] = None
-    provider: str
-    provider_id: str
-
-class UserCreate(UserBase):
-    pass # No additional fields needed for creation beyond base
-
-class User(UserBase):
-    id: int
-    created_at: datetime.datetime
-    updated_at: datetime.datetime
+    name: str
+    emailVerified: bool
+    image: Optional[str] = None
+    createdAt: datetime.datetime
+    updatedAt: datetime.datetime
 
     class Config:
         from_attributes = True
 
+class AuthSession(BaseModel):
+    id: str
+    userId: str
+    token: str
+    expiresAt: datetime.datetime
+    ipAddress: Optional[str] = None
+    userAgent: Optional[str] = None
+    createdAt: datetime.datetime
+    updatedAt: datetime.datetime
+
+    class Config:
+        from_attributes = True
+
+# Legacy/App Models
 class BookBase(BaseModel):
     title: str
-    content: str # This will be the initial content when creating a book
+    content: str
 
 class BookCreate(BookBase):
     pass
@@ -74,7 +81,7 @@ class BookContent(BookContentBase):
 
 class TranslationBase(BaseModel):
     language: str
-    translated_content: str # This will be the content for the translation
+    translated_content: str
 
 class TranslationCreate(TranslationBase):
     pass

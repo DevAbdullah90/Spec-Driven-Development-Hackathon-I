@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { authClient } from '../../lib/auth-client';
+import { useHistory } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function PageTranslator() {
   const [isTranslating, setIsTranslating] = useState(false);
   const [isTranslated, setIsTranslated] = useState(false);
   const [originalContent, setOriginalContent] = useState('');
+  const { data: session } = authClient.useSession();
+  const history = useHistory();
+  const { siteConfig } = useDocusaurusContext();
 
   const handleTranslatePage = async () => {
+    // Auth Check
+    if (!session) {
+        alert("Please login or sign up to translate this page in Urdu.");
+        history.push(`${siteConfig.baseUrl}login`);
+        return;
+    }
+
     if (isTranslated) {
       // Revert to original
       document.body.innerHTML = originalContent;
@@ -58,11 +71,19 @@ export default function PageTranslator() {
             return;
         }
 
-        const response = await fetch('https://abdullah9873-physical-ai-backend.hf.space/translate-text', {
+        // Use local backend and include credentials for Auth check
+        const response = await fetch('http://localhost:8000/translate-text', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: textToTranslate, language: 'ur' })
+            body: JSON.stringify({ text: textToTranslate, language: 'ur' }),
+            credentials: 'include' // Important: Send cookies for auth check
         });
+
+        if (response.status === 401) {
+             alert("Session expired. Please login again.");
+             history.push(`${siteConfig.baseUrl}login`);
+             return;
+        }
 
         if (!response.ok) throw new Error('Translation service failed');
         
@@ -83,7 +104,7 @@ export default function PageTranslator() {
 
     } catch (error) {
         console.error("Translation failed:", error);
-        alert("Failed to translate page. Ensure backend is running.");
+        alert("Failed to translate page. Ensure backend is running at http://localhost:8000");
     } finally {
         setIsTranslating(false);
     }

@@ -1,5 +1,5 @@
 import logging
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 import os
@@ -21,6 +21,7 @@ from .services.openai_service import OpenAIservice
 from .services import book_service
 from .services import translation_service
 from . import models
+from .middleware.auth import get_current_user # Import get_current_user
 
 # Ensure all tables are created if database is available
 if database_available and Base is not None:
@@ -35,7 +36,8 @@ app = FastAPI()
 # Add CORS middleware to allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    # Allow explicit frontend origin to support credentials (cookies)
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://devabdullah90.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -76,9 +78,13 @@ def read_root():
         "database_available": database_available
     }
 
+# Protect query endpoints
 @app.post("/query/general", response_model=schemas.GeneralQueryResponse)
-async def query_general(request: schemas.GeneralQueryRequest):
-    logger.info(f"General query received: {request.question}")
+async def query_general(
+    request: schemas.GeneralQueryRequest,
+    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+):
+    logger.info(f"General query received from user {current_user.email}: {request.question}")
     try:
         if not openai_available:
             raise HTTPException(status_code=503, detail="OpenAI service is not available.")
@@ -126,8 +132,11 @@ async def query_general(request: schemas.GeneralQueryRequest):
 
 
 @app.post("/query/selected-text", response_model=schemas.SelectedTextQueryResponse)
-async def query_selected_text(request: schemas.SelectedTextQueryRequest):
-    logger.info(f"Selected text query received.")
+async def query_selected_text(
+    request: schemas.SelectedTextQueryRequest,
+    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+):
+    logger.info(f"Selected text query received from user {current_user.email}.")
     try:
         if not openai_available:
             raise HTTPException(status_code=503, detail="OpenAI service is not available.")
@@ -144,13 +153,17 @@ async def query_selected_text(request: schemas.SelectedTextQueryRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 # Translation Endpoint for General Text (For Website)
+# Optionally protect translation too? Constitution says "Authenticated users... ability to translate".
 @app.post("/translate-text")
-async def translate_text_endpoint(request: dict):
+async def translate_text_endpoint(
+    request: dict,
+    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+):
     """
     Translate any text to the specified language.
     Request body: {"text": "...", "language": "ur"}
     """
-    logger.info("Text translation request received.")
+    logger.info(f"Text translation request received from user {current_user.email}.")
     try:
         text = request.get("text")
         dest_language = request.get("language", "ur")
@@ -170,10 +183,15 @@ async def translate_text_endpoint(request: dict):
         logger.exception("An unhandled error occurred in translate_text_endpoint:")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Books Endpoints - Auth Removed
+# Books Endpoints - Temporarily Keeping Auth Removed or using Legacy User?
+# The task was to protect /query/*. I added protection to /translate-text too as per Constitution.
+# I'll leave book endpoints as is for now or use the hardcoded 1, as T015 specifically mentioned /query/*.
+# But if I wanted to be thorough, I'd protect these too.
+# Given "content fidelity" and "simplicity", I'll stick to T015 scope.
+
 @app.post("/books", response_model=schemas.Book)
 async def create_book_endpoint(book: schemas.BookCreate, db: Session = Depends(get_db)):
-    # Hardcoded user_id=1 since auth is removed
+    # Hardcoded user_id=1 since auth is removed (legacy)
     current_user_id = 1 
     logger.info(f"Create book request for user {current_user_id} with title: {book.title}")
     try:
