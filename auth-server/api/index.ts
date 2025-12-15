@@ -22,5 +22,8 @@ app.use(
 // Mount the better-auth handler
 app.all('/*', (c) => auth.handler(c.req.raw))
 
+// Add a simple health check for the root of the auth path
+app.get('/', (c) => c.json({ status: 'Auth Server is running!', version: '1.0.0' }))
+
 export const GET = handle(app)
 export const POST = handle(app)
