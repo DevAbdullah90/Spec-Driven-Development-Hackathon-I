@@ -4,7 +4,6 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 // Re-create the Hono app instance for the Serverless Function env
-// We can't reuse the one from server.ts easily if it has 'serve' from @hono/node-server attached immediately
 const app = new Hono().basePath('/api/auth')
 
 app.use(
