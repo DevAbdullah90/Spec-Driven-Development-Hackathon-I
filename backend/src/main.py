@@ -33,6 +33,9 @@ if database_available and Base is not None:
 
 app = FastAPI()
 
+# Last deployed: 2025-12-18
+
+
 # Add CORS middleware to allow frontend to connect
 app.add_middleware(
     CORSMiddleware,
