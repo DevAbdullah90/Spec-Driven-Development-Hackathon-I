@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { authClient } from '../../lib/auth-client';
 
 interface TranslateDocButtonProps {
     onTranslate: (translatedHtml: string) => void;
@@ -14,6 +15,14 @@ const TranslateDocButton: React.FC<TranslateDocButtonProps> = ({ onTranslate }) 
         setError(null);
 
         try {
+            // Get the session to retrieve the token
+            const session = await authClient.getSession();
+            const token = session.data?.session.token;
+
+            if (!token) {
+                throw new Error("Please sign in to translate.");
+            }
+
             // Get the main article content
             const article = document.querySelector('article');
             if (!article) {
@@ -28,6 +37,7 @@ const TranslateDocButton: React.FC<TranslateDocButtonProps> = ({ onTranslate }) 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
                     text: textContent,

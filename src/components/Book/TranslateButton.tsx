@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { authClient } from '../../lib/auth-client';
 
 interface TranslateButtonProps {
   bookId: number;
@@ -15,12 +16,20 @@ const TranslateButton: React.FC<TranslateButtonProps> = ({ bookId, onTranslate }
     setError(null);
 
     try {
+      // Get the session to retrieve the token
+      const session = await authClient.getSession();
+      const token = session.data?.session.token;
+
+      if (!token) {
+          throw new Error("Please sign in to translate.");
+      }
+
       // Direct call to backend, matching ViewBook.tsx pattern
       const response = await fetch(`http://localhost:8000/books/${bookId}/translate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Auth header removed as backend has removed auth
+          'Authorization': `Bearer ${token}`
         },
       });
 

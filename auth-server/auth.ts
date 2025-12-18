@@ -23,5 +23,17 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
-    trustedOrigins: ["http://localhost:3000", "https://gemini-auth-server-demo.netlify.app"],
+    trustedOrigins: ["http://localhost:3000", "https://gemini-auth-server-demo.netlify.app", "https://devabdullah90.github.io"],
+    advanced: {
+        cookiePrefix: "better-auth",
+        crossSubDomainCookies: {
+            enabled: true,
+            domain: "netlify.app" 
+        },
+        defaultCookieAttributes: {
+            sameSite: "none",
+            secure: true,
+            httpOnly: true
+        }
+    }
 });

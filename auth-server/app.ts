@@ -7,7 +7,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:3000", "https://your-docusaurus-site.netlify.app", "https://gemini-auth-server-demo.netlify.app"], // Add your production frontend URL here
+    origin: ["http://localhost:3000", "https://your-docusaurus-site.netlify.app", "https://gemini-auth-server-demo.netlify.app", "https://devabdullah90.github.io"], // Add your production frontend URL here
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["POST", "GET", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
