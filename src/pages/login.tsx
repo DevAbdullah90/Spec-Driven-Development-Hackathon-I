@@ -26,6 +26,13 @@ export default function Login() {
       if (error) {
         setError(error.message || "Login failed. Please check your credentials.");
       } else {
+        // Save token to localStorage for cross-domain usage fallback
+        if (data?.token) {
+            localStorage.setItem('auth_token', data.token);
+        } else if (data?.session?.token) { // handle potential structure variation
+             localStorage.setItem('auth_token', data.session.token);
+        }
+        
         history.push(siteConfig.baseUrl);
       }
     } catch (err: any) {
