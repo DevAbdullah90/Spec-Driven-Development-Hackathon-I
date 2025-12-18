@@ -1,5 +1,5 @@
 import { handle } from 'hono/vercel'
-import { auth } from '../auth'
+import { auth } from '../auth.js'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 

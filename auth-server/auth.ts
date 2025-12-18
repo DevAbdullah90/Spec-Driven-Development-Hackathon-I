@@ -23,5 +23,5 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
-    trustedOrigins: ["http://localhost:3000"],
+    trustedOrigins: ["http://localhost:3000", "https://gemini-auth-server-demo.netlify.app"],
 });
