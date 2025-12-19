@@ -21,7 +21,7 @@ from .services.openai_service import OpenAIservice
 from .services import book_service
 from .services import translation_service
 from . import models
-from .middleware.auth import get_current_user # Import get_current_user
+# from .middleware.auth import get_current_user # Import get_current_user
 
 # Ensure all tables are created if database is available
 if database_available and Base is not None:
@@ -84,10 +84,9 @@ def read_root():
 # Protect query endpoints
 @app.post("/query/general", response_model=schemas.GeneralQueryResponse)
 async def query_general(
-    request: schemas.GeneralQueryRequest,
-    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+    request: schemas.GeneralQueryRequest
 ):
-    logger.info(f"General query received from user {current_user.email}: {request.question}")
+    logger.info(f"General query received: {request.question}")
     try:
         if not openai_available:
             raise HTTPException(status_code=503, detail="OpenAI service is not available.")
@@ -136,10 +135,9 @@ async def query_general(
 
 @app.post("/query/selected-text", response_model=schemas.SelectedTextQueryResponse)
 async def query_selected_text(
-    request: schemas.SelectedTextQueryRequest,
-    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+    request: schemas.SelectedTextQueryRequest
 ):
-    logger.info(f"Selected text query received from user {current_user.email}.")
+    logger.info(f"Selected text query received.")
     try:
         if not openai_available:
             raise HTTPException(status_code=503, detail="OpenAI service is not available.")
@@ -159,14 +157,13 @@ async def query_selected_text(
 # Optionally protect translation too? Constitution says "Authenticated users... ability to translate".
 @app.post("/translate-text")
 async def translate_text_endpoint(
-    request: dict,
-    current_user: schemas.AuthUser = Depends(get_current_user) # Add protection
+    request: dict
 ):
     """
     Translate any text to the specified language.
     Request body: {"text": "...", "language": "ur"}
     """
-    logger.info(f"Text translation request received from user {current_user.email}.")
+    logger.info(f"Text translation request received.")
     try:
         text = request.get("text")
         dest_language = request.get("language", "ur")
